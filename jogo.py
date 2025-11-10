@@ -1,12 +1,94 @@
 import random
 from os import system, name
 
+
 #Função para limpar a tela a cada execução
 def limpa_tela():
   #Windows
   if name == 'nt':
     _=system('cls')
 
+
+#Função que desenha a forca na tela
+def display_hangman(chance):
+
+  #Lista de estágios da forca
+  stages = [ #Estagio 6 (final)
+            """
+              _____________
+             |            |
+             |            0
+             |           \\|/
+             |            |
+             |           / \\
+             |
+           """,
+
+             #Estagio 5
+             """
+              _____________
+             |            |
+             |            0
+             |           \\|/
+             |            |
+             |           /
+             |
+           """,
+             #Estagio 4
+             """
+              _____________
+             |            |
+             |            0
+             |           \\|/
+             |            |
+             |
+             |
+           """,
+             #Estagio 3
+             """
+              _____________
+             |            |
+             |            0
+             |           \\|
+             |            |
+             |
+             |
+           """,
+             #Estágio 2
+             """
+              _____________
+             |            |
+             |            0
+             |            |
+             |            |
+             |
+             |
+           """,
+             #Estágio 1
+             """
+              _____________
+             |            |
+             |            0
+             |
+             |
+             |
+             |
+           """,
+             #Estágio 0
+             """
+              _____________
+             |            |
+             |
+             |
+             |
+             |
+             |
+           """
+  ]
+  return stages[chance]
+
+
+#Função do Jogo
 def game():
   limpa_tela()
 
@@ -27,9 +109,11 @@ def game():
   #Letras que errou
   letras_erradas = []
 
+  # Exibe o primeiro desenho (vazio)
+  print(display_hangman(chance))
+
   #Loop enquanto o número de chances for maior do que zero
   while chance > 0:
-
     #Join faz uma junção do que está no lado esq. com o lado direito ele vai juntar os espaços com as letras descobertas
     print(" ".join(letras_descobertas))
     print("\n Chances restantes: ", chance)
@@ -49,7 +133,9 @@ def game():
       chance -= 1
       letras_erradas.append(tentativa)
 
-    limpa_tela()
+    limpa_tela()    
+    print(display_hangman(chance)) 
+      
       
     #Condicional- Se tiver completado todas as letras da palavra
     if "_" not in letras_descobertas:
@@ -71,4 +157,5 @@ if __name__ == "__main__":
             break
         else:
             limpa_tela()
+            chances=6
 
